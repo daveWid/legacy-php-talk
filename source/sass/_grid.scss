@@ -1,0 +1,84 @@
+/* =============================================================================
+   Grid
+   ========================================================================== */
+
+.container {
+	width: 960px;
+	margin: 0 auto;
+}
+
+.row {
+	width:100%;
+
+	[class*="span"]:first-child {
+		margin-left: 0;
+	}
+}
+
+.row:before,
+.row:after {
+	display: table;
+	content: "";
+}
+
+.row:after {
+	clear: both;
+}
+
+[class*="span"] {
+	margin-left: $gridGutter;
+	float: left;
+	-webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.span1 {
+	width: $gridSpan;
+}
+
+.span2 {
+	width: ($gridSpan * 2) + ($gridGutter * 1);
+}
+
+.span3 {
+	width: ($gridSpan * 3) + ($gridGutter * 2);
+}
+
+.span4 {
+	width: ($gridSpan * 4) + ($gridGutter * 3);
+}
+
+.span5 {
+	width: ($gridSpan * 5) + ($gridGutter * 4);
+}
+
+.span6 {
+	width: ($gridSpan * 6) + ($gridGutter * 5);
+}
+
+.span7 {
+	width: ($gridSpan * 7) + ($gridGutter * 6);
+}
+
+.span8 {
+	width: ($gridSpan * 8) + ($gridGutter * 7);
+}
+
+.span9 {
+	width: ($gridSpan * 9) + ($gridGutter * 8);
+}
+
+.span10 {
+	width: ($gridSpan * 10) + ($gridGutter * 9);
+}
+
+.span11 {
+	width: ($gridSpan * 11) + ($gridGutter * 10);
+}
+
+.span12 {
+	width: 100%;
+}
+
