@@ -41,18 +41,23 @@ h5,
 h6 {
 	font-family: "BebasRegular", "Helvetica Neue", sans-serif;
 	color: $themePrimaryColor;
+	word-spacing: 0.25em;
 }
 
 h1 {
 	font-size: 3em;
 	text-shadow: 3px 3px 0 hsla(0, 100%, 0%, 0.15);
-	word-spacing: 0.25em;
+	margin:0;
 	letter-spacing: -2px;
 }
 
 h2 {
-	font-size: 2em;
-	text-shadow: 2px 2px 0 hsla(0, 100%, 0%, 0.15);
+	font-size: 1.75em;
+	text-shadow: 0 2px 0 #bbb;
+	margin:0;
+	padding-top:0.5em;
+	color: $themeAccentColor;
+	letter-spacing: -1px;
 }
 
 /* Classes
@@ -69,8 +74,8 @@ h2 {
 
 .call-out {
 	position: absolute;
-	bottom: 1em;
-	right: 1em;
+	bottom: 2em;
+	right: 2em;
 
 	padding: 1em;
 	background-color: hsla(0, 100%, 100%, 0.5);
@@ -83,5 +88,21 @@ h2 {
 
 	strong {
 		color: #ff7300;
+	}
+}
+
+.pull-up {
+	margin-top:0;
+}
+
+.push-down {
+	margin-top:1em;
+
+	&.double {
+		margin-top: 2em;
+	}
+
+	&.half {
+		margin-top:0.5em;
 	}
 }
