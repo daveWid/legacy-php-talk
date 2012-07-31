@@ -26,7 +26,7 @@
 		</section>
 
 		<section class="slide full">
-			<h2>Functional FTP Upload</h2>
+			<h2>Functional: upload.php</h2>
 
 			<pre><code class="php">// file to ftp
 $file = $_FILES['userfile']['name'];
@@ -135,7 +135,7 @@ class File
 {
   private $file;
 
-  public function __constructor($file)
+  public function __construct($file)
   {
     $this->file = $file;
   }
@@ -159,7 +159,7 @@ class File
 		</section>
 
 		<section class="slide full">
-			<h2>upload.php</h2>
+			<h2>Start Fresh: upload.php</h2>
 
 			<pre><code class="php">include "NWOPUG/FTP/File.php";
 
@@ -168,10 +168,40 @@ $file = new NWOPUG\FTP\File($_FILES['userfile']);</code></pre>
 			<div class="slide">
 				<h3>var_dump($file)</h3>
 
-				<pre><code class="php">
-
-</code></pre>
+				<pre><code class="php">object(NWOPUG\FTP\File)#12 (1) {
+  ["file":"NWOPUG\FTP\File":private]=>
+  array(5) {
+    ["name"]=> string(13) "test_file.doc"
+    ["type"]=> string(18) "application/msword"
+    ["size"]=> string(7) "1000000"
+    ["tmp_name"]=> string(12) "Lhdf8yajskdl"
+    ["error"]=> int(0)
+  }
+}</code></pre>
 			</div>
+
+			<div class="slide">
+				<h3>$file->file;</h3>
+
+				<pre><code class="php">PHP Fatal error:  Cannot access private property NWOPUG\FTP\File::$file</code></pre>
+			</div>
+		</section>
+
+		<section class="slide full">
+			<h2>Validation: upload.php</h2>
+
+			<pre><code class="php">include "NWOPUG/FTP/File.php";
+
+$file = new NWOPUG\FTP\File($_FILES['userfile']);
+
+if ( ! $file->isValid()) {
+ // Send user error message
+}
+
+// If we make it here we are good!</code></pre>
+		</section>
+		<section class="slide full alternate">
+			<h1 class="vcenter">Easier to Read?</h1>
 		</section>
 	</article>
 

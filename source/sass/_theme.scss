@@ -119,8 +119,14 @@ pre {
 .alternate {
 	background-image: url('low_contrast_linen.png');
 
+	box-shadow: 0 0 10em hsl(0, 0%, 0%) inset;
+
 	h1 {
 		color: hsla(50, 100%, 50%, 0.9);
 		text-shadow: 0 3px 0 hsl(0, 0%, 0%);
 	}
+}
+
+.type-center {
+	text-align: center;
 }
