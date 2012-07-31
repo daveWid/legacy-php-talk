@@ -28,7 +28,7 @@ $themeAccentColor: #080;
    ========================================================================== */
 
 body {
-	background-image: url('stone_texture.jpg');
+	background-image: url('strange_bullseyes.png');
 	font-size: 24px;
 	color: #333;
 	line-height: 1.2;
@@ -47,14 +47,14 @@ h6 {
 
 h1 {
 	font-size: 5em;
-	text-shadow: 0 3px 0 hsl(0, 0%, 80%);
+	text-shadow: 0 3px 0 hsl(0, 0%, 100%);
 	margin:0;
 	text-transform: uppercase;
 }
 
 h2 {
 	font-size: 2.5em;
-	text-shadow: 0 2px 0 #bbb;
+	text-shadow: 0 2px 0 hsl(0, 0%, 100%);
 	margin:0;
 	padding-top:0.5em;
 	color: $themeAccentColor;
@@ -79,8 +79,8 @@ h2 {
 
 	padding: 1em;
 	background-color: hsla(0, 100%, 100%, 0.5);
-	box-shadow: 0 0 0.35em $themePrimaryColor inset;
-	border: 2px solid #fff;
+	box-shadow: 0 0 0.5em lighten($themePrimaryColor, 10%) inset;
+	border: 1px solid hsla(0, 0%, 80%, 0.75);
 }
 
 .bgsu {
