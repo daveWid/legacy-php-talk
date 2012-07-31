@@ -13,14 +13,15 @@ $themeAccentColor: #080;
    ========================================================================== */
 
 @font-face {
-    font-family: 'BebasRegular';
-    src: url('BEBAS-webfont.eot');
-    src: url('BEBAS-webfont.eot?#iefix') format('embedded-opentype'),
-         url('BEBAS-webfont.woff') format('woff'),
-         url('BEBAS-webfont.ttf') format('truetype'),
-         url('BEBAS-webfont.svg#BebasRegular') format('svg');
+    font-family: 'LeagueGothicRegular';
+    src: url('League_Gothic-webfont.eot');
+    src: url('League_Gothic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('League_Gothic-webfont.woff') format('woff'),
+         url('League_Gothic-webfont.ttf') format('truetype'),
+         url('League_Gothic-webfont.svg#LeagueGothicRegular') format('svg');
     font-weight: normal;
     font-style: normal;
+
 }
 
 /* HTML Elements
@@ -39,25 +40,24 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: "BebasRegular", "Helvetica Neue", sans-serif;
+	font-weight: normal;
+	font-family: "LeagueGothicRegular", "Helvetica Neue", sans-serif;
 	color: $themePrimaryColor;
-	word-spacing: 0.25em;
 }
 
 h1 {
-	font-size: 3em;
-	text-shadow: 3px 3px 0 hsla(0, 100%, 0%, 0.15);
+	font-size: 5em;
+	text-shadow: 0 3px 0 hsl(0, 0%, 80%);
 	margin:0;
-	letter-spacing: -2px;
+	text-transform: uppercase;
 }
 
 h2 {
-	font-size: 1.75em;
+	font-size: 2.5em;
 	text-shadow: 0 2px 0 #bbb;
 	margin:0;
 	padding-top:0.5em;
 	color: $themeAccentColor;
-	letter-spacing: -1px;
 }
 
 /* Classes
