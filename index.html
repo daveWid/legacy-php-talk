@@ -61,7 +61,7 @@ print "\n";
 ftp_close($c_id);</code></pre>	
 		</section>
 
-		<section class="slide full">
+		<section class="slide full alternate">
 			<h1 class="vcenter">What Are We Doing?</h1>
 		</section>
 
@@ -163,7 +163,7 @@ class File
 
 			<pre><code class="php">include "NWOPUG/FTP/File.php";
 
-$file = new NWOPUG\FTP\File($_FILES['userfile']);</code></pre>
+$file = new \NWOPUG\FTP\File($_FILES['userfile']);</code></pre>
 
 			<div class="slide">
 				<h3>var_dump($file)</h3>
@@ -192,7 +192,7 @@ $file = new NWOPUG\FTP\File($_FILES['userfile']);</code></pre>
 
 			<pre><code class="php">include "NWOPUG/FTP/File.php";
 
-$file = new NWOPUG\FTP\File($_FILES['userfile']);
+$file = new \NWOPUG\FTP\File($_FILES['userfile']);
 
 if ( ! $file->isValid()) {
  // Send user error message
@@ -200,8 +200,127 @@ if ( ! $file->isValid()) {
 
 // If we make it here we are good!</code></pre>
 		</section>
+
 		<section class="slide full alternate">
 			<h1 class="vcenter">Easier to Read?</h1>
+		</section>
+
+		<section class="slide full">
+			<h2>NWOPUG\FTP</h2>
+
+			<pre><code class="php">namespace NWOPUG;
+
+class FTP
+{
+  private $config;
+  private $connection = null;
+
+  public function __construct(array $config)
+  {
+    $this->config = $config;
+
+    $this->connection = ftp_connect($this->config['host'], $this->config['port']);
+    if ($this->connection === false)
+    {
+      throw new \UnexpectedValueException('Can not connect to '.$this->config['host']);
+    }
+
+    $login = ftp_login($this->connection, $config['user'], $config['password']);
+    if ($login === false)
+    {
+      throw new \UnexpectedValueException('Invalid login');
+    }
+  }
+
+  public function upload($file, $path, $mode = \FTP_ASCII)
+  {
+    return ftp_put($this->connection, $path, $file, $mode);
+  }
+
+  public function __destruct()
+  { 
+    ftp_close($this->connection);
+  }
+}</code></pre>
+		</section>
+
+		<section class="slide full">
+			<h2>FTP: upload.php</h2>
+
+			<pre><code class="php">include "NWOPUG/FTP/File.php";
+include "NWOPUG/FTP.php";
+
+$file = new \NWOPUG\FTP\File($_FILES['userfile']);
+
+if ( ! $file->isValid()) {
+ // Send user error message
+}
+
+$config = array(
+  'host' => 'ftp.testing.com',
+  'port' => 21,
+  'user' => 'test',
+  'password' => 'youllneverguess'
+);
+
+$ftp = new \NWOPUG\FTP($config);
+$success = $ftp->upload($file->getTmpName(), "/data/".$file->getName());
+
+if ( ! $success) {
+  // Send user error message
+}
+
+// Success!</code></pre>
+		</section>
+
+		<section class="slide full">
+			<h2>Optimize: upload.php</h2>
+
+			<pre><code class="php">// Autoload
+<del>include "NWOPUG/FTP/File.php";
+include "NWOPUG/FTP.php";</del>
+
+$file = new \NWOPUG\FTP\File($_FILES['userfile']);
+
+if ( ! $file->isValid()) {
+ // Send user error message
+}
+
+// Keep in configuration file outside of webroot
+<del>$config = array(
+  'host' => 'ftp.testing.com',
+  'port' => 21,
+  'user' => 'test',
+  'password' => 'youllneverguess'
+);</del>
+
+$ftp = new \NWOPUG\FTP($config);
+$success = $ftp->upload($file->getTmpName(), "/data/".$file->getName());
+
+if ( ! $success) {
+  // Send user error message
+}
+
+// Success!</code></pre>
+		</section>
+
+		<section class="slide full">
+			<h2>Updated: upload.php</h2>
+
+			<pre><code class="php">$file = new \NWOPUG\FTP\File($_FILES['userfile']);
+
+if ( ! $file->isValid()) {
+ // Send user error message
+}
+
+$ftp = new \NWOPUG\FTP($config);
+$success = $ftp->upload($file->getTmpName(), "/data/".$file->getName());
+
+if ( ! $success) {
+  // Send user error message
+}
+
+// Success!</code></pre>
 		</section>
 	</article>
 
