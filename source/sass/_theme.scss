@@ -43,6 +43,7 @@ h6 {
 	font-weight: normal;
 	font-family: "LeagueGothicRegular", "Helvetica Neue", sans-serif;
 	color: $themePrimaryColor;
+	margin: 0.5em 0;
 }
 
 h1 {
@@ -58,6 +59,10 @@ h2 {
 	margin:0;
 	padding-top:0.5em;
 	color: $themeAccentColor;
+}
+
+h3 {
+	font-size: 2em;
 }
 
 /* Classes
@@ -104,5 +109,18 @@ h2 {
 
 	&.half {
 		margin-top:0.5em;
+	}
+}
+
+pre {
+	font-size: 0.75em;
+}
+
+.alternate {
+	background-image: url('low_contrast_linen.png');
+
+	h1 {
+		color: hsla(50, 100%, 50%, 0.9);
+		text-shadow: 0 3px 0 hsl(0, 0%, 0%);
 	}
 }

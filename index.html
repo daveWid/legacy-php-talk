@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Converting Legacy PHP</title>
+	<title>Updating Legacy PHP</title>
 
 	<meta charset="utf-8" />
 
@@ -16,7 +16,7 @@
 <body>
 	<article>
 		<section class="slide full">
-			<h1 class="vcenter">Converting Legacy Code</h1>
+			<h1 class="vcenter">Updating Legacy Code</h1>
 
 			<div class="call-out">
 				Dave Widmer<br />
@@ -26,24 +26,152 @@
 		</section>
 
 		<section class="slide full">
-			<h2>Slide 2 Title</h2>
+			<h2>Functional FTP Upload</h2>
+
+			<pre><code class="php">// file to ftp
+$file = $_FILES['userfile']['name'];
+$filetype=$_FILES["userfile"]["type"];  
+
+if($filetype != "application/msword" and $filetype != "application/pdf") {
+	die('Invalid file, click &lt;a href="./index.php?error=INV_FILE_EXT">here&lt;/a> to retry!');
+}
+$ftp_path = '/data/' . $file;
+
+// FTP credentials
+$host = 'HOST';
+$user = 'USERNAME';
+$pswd = 'PASSWORD';
+
+// connect to FTP server (port 21)
+$c_id = ftp_connect($host, 21) or die("Cannot connect to host");
+
+// send access parameters
+ftp_login($c_id, $user, $pswd) or die("Cannot login");
+
+// do the file upload
+$upload = ftp_put($c_id, $ftp_path, $file, FTP_ASCII);
+// if your server requires passive mode transfers, use this instead
+// $upload = ftp_pasv ($c_id, true);
+
+// check to see if upload was successful
+print (!$upload) ? 'Cannot upload' : 'Upload complete';
+print "\n";
+
+// close the FTP session
+ftp_close($c_id);</code></pre>	
+		</section>
+
+		<section class="slide full">
+			<h1 class="vcenter">What Are We Doing?</h1>
+		</section>
+
+		<section class="slide full">
+			<h2>File</h2>
+
+			<div class="slide">
+				<h3>Prepare</h3>
+
+				<pre><code class="php">$file = $_FILES['userfile']['name'];
+$filetype=$_FILES["userfile"]["type"];</code></pre>
+			</div>
+
+			<div class="slide">
+				<h3>Validate</h3>
+
+				<pre><code class="php">if($filetype != "application/msword" and $filetype != "application/pdf") {
+	die('Invalid file, click &lt;a href="./index.php?error=INV_FILE_EXT">here&lt;/a> to retry!');
+}</code></pre>
+			</div>
+		</section>
+
+		<section class="slide full">
+			<h2>FTP Server</h2>
+
+			<div class="slide">
+				<h3>Configuration</h3>
+				
+				<pre><code class="php">$host = 'HOST';
+$user = 'USERNAME';
+$pswd = 'PASSWORD';</code></pre>
+			</div>
+
+			<div class="slide">
+				<h3>Connect</h3>
+
+				<pre><code class="php">$c_id = ftp_connect($host, 21) or die("Cannot connect to host");
+ftp_login($c_id, $user, $pswd) or die("Cannot login");</code></pre>
+			</div>
+
+			<div class="slide">
+				<h3>Upload</h3>
+
+				<pre><code class="php">$upload = ftp_put($c_id, $ftp_path, $file, FTP_ASCII);
+// $upload = ftp_pasv ($c_id, true); // if your server requires passive mode transfers, use this instead</code></pre>
+			</div>
+
+			<div class="slide">
+				<h3>Disconnect</h3>
+
+				<pre><code class="php">ftp_close($c_id);</code></pre>
+			</div>
+		</section>
+
+		<section class="slide full alternate">
+			<h1 class="vcenter">So Now What?!?</h1>
+		</section>
+
+		<section class="slide full">
+			<h1 class="vcenter">Classes!</h1>
+		</section>
+
+		<section class="slide full">
+			<h2>NWOPUG\FTP\File</h2>
 
 			<pre><code class="php">&lt;?php
 
-class Test
-{
-  protected $var;
+namespace NWOPUG\FTP;
 
-  /**
-   * Here is a comment
-   *
-   * @param $var string  A variable
-   */
-  function __construct($var)
+class File
+{
+  private $file;
+
+  public function __constructor($file)
   {
-    $this->var = $var;
+    $this->file = $file;
   }
-}</code></pre>	
+
+  public function getName()
+  {
+    return $this->file['name'];
+  }
+
+  public function getType()
+  {
+    return $this->file['type'];
+  }
+
+  public function isValid()
+  {
+    $validTypes = array('application/msword', 'application/pdf');
+    return in_array($this->getType(), $validTypes);
+  }
+}</code></pre>
+		</section>
+
+		<section class="slide full">
+			<h2>upload.php</h2>
+
+			<pre><code class="php">include "NWOPUG/FTP/File.php";
+
+$file = new NWOPUG\FTP\File($_FILES['userfile']);</code></pre>
+
+			<div class="slide">
+				<h3>var_dump($file)</h3>
+
+				<pre><code class="php">
+
+</code></pre>
+			</div>
 		</section>
 	</article>
 
