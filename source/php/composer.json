@@ -1,0 +1,20 @@
+{
+	"name": "nwo-pug/ftp",
+	"description": "A test library for FTP based file uploads",
+	"keywords": ["ftp","file upload"],
+	"type": "library",
+	"license": "Public Domain",
+	"authors": [
+		{
+			"name": "Dave Widmer",
+			"email": "dave@davewidmer.net",
+			"homepage": "http://www.davewidmer.net"
+		}
+	],
+	"require":{
+		"php": ">=5.3"
+	},
+	"autoload": {
+		"psr-0": { "NWOPUG": "classes/" }
+	}
+}
