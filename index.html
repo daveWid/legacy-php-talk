@@ -293,100 +293,27 @@ Format::date('2012-08-21');            // "August 21st, 2012"
 		</section>
 
 		<section class="slide full">
-			<h2>FTP Uploads</h2>
+			<h2>On Your Own</h2>
+			<ul>
+				<li>Constructors and Destructors</li>
+				<li>Magic Methods</li>
+				<li>Autoloading</li>
+				<li>Abstraction</li>
+				<li>Interfaces</li>
+				<li>Exceptions</li>
+				<li>Namespaces (5.3+)</li>
+				<li>Traits (5.4+)</li>
+			</ul>
 
-			<pre><code class="php">// file to ftp
-$file = $_FILES['userfile']['name'];
-$filetype=$_FILES["userfile"]["type"];
-
-if($filetype != "application/msword" and $filetype != "application/pdf") {
-	die('Invalid file, click &lt;a href="./index.php?error=INV_FILE_EXT">here&lt;/a> to retry!');
-}
-$ftp_path = '/data/' . $file;
-
-// FTP credentials
-$host = 'HOST';
-$user = 'USER';
-$pswd = 'PASS';
-
-// connect to FTP server (port 21)
-$c_id = ftp_connect($host, 21) or die("Cannot connect to host");
-
-// send access parameters
-ftp_login($c_id, $user, $pswd) or die("Cannot login");
-
-// do the file upload
-$upload = ftp_put($c_id, $ftp_path, $file, FTP_ASCII);
-
-// check to see if upload was successful
-print (!$upload) ? 'Cannot upload' : 'Upload complete';
-print "\n";
-
-// close the FTP session
-ftp_close($c_id);</code></pre>
+			<h2>Resources</h2>
+			<ul>
+				<li><a href="http://www.php.net">PHP.net</a></li>
+				<li><a href="http://www.php-fig.org/">PHP FIG</a></li>
+				<li><a href="http://www.phptherightway.com/">PHP the Right Way</a></li>
+			</ul>
 		</section>
 
-		<section class="slide full">
-			<h2>OOP FTPUpload</h2>
-			<div class="row">
-				<div class="span8">
-					<pre><code class="php">class FTPUpload
-{
-  private $file;
-  private $id = null;
-
-  public function __construct(array $file, array $config)
-  {
-    $this->file = $file;
-    $this->id = ftp_connect($config['host']) or die('Cannot connect to host');
-    ftp_login($this->id, $config['user'], $config['password']) or die("Cannot login");
-  }
-
-  public function isValid()
-  {
-    $valid = array('application/msword','application/pdf');
-    return in_array($this->file['filetype'], $valid);
-  }
-
-  public function upload($path)
-  {
-    return ftp_put($this->id, $path, $this->file['filename'], FTP_ASCII);
-  }
-
-  public function __destruct()
-  {
-    if ($this->id !== null) {
-      ftp_close($this->id);
-    }
-  }
-}</code></pre>
-				</div>
-				<div class="span4">
-					<pre><code class="php">$config = array(
-  'host' => "HOST",
-  'user' => "USER",
-  'password' => "PASSWORD"
-);
-
-$file = $_FILE['userfile'];
-$ftp = new FTPUpload($file, $config);
-
-if ( ! $ftp->isValid()) {
-  // Send user error
-}
-
-$success = $ftp->upload("/data/");
-
-if ($success) {
-  echo "Success";
-} else {
-  echo "Error";
-}</code></pre>
-				</div>
-			</div>
-		</section>
-
-		<section class="slide full alternate">
+				<section class="slide full alternate">
 			<h1 class="vcenter green">Function Spotlight<br />
 				<small class="pink">array_map</small>
 			</h1>
@@ -418,27 +345,6 @@ $capitalized = array_map('ucwords', $beers);
 			<div class="call-out resource">
 				<a href="http://us3.php.net/manual/en/function.array-map.php">PHP Manual</a>
 			</div>
-		</section>
-
-		<section class="slide full">
-			<h2>On Your Own</h2>
-			<ul>
-				<li>Constructors and Destructors</li>
-				<li>Magic Methods</li>
-				<li>Autoloading</li>
-				<li>Abstraction</li>
-				<li>Interfaces</li>
-				<li>Exceptions</li>
-				<li>Namespaces (5.3+)</li>
-				<li>Traits (5.4+)</li>
-			</ul>
-
-			<h2>Resources</h2>
-			<ul>
-				<li><a href="http://www.php.net">PHP.net</a></li>
-				<li><a href="http://www.php-fig.org/">PHP FIG</a></li>
-				<li><a href="http://www.phptherightway.com/">PHP the Right Way</a></li>
-			</ul>
 		</section>
 
 		<section class="slide full">
