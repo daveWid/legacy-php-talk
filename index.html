@@ -25,302 +25,157 @@
 			</div>
 		</section>
 
+		<section class="slide full alternate">
+			<h1 class="vcenter">Back To Basics</h1>
+		</section>
+
 		<section class="slide full">
-			<h2>Functional: upload.php</h2>
+			<h2>What is a Class?</h2>
 
-			<pre><code class="php">// file to ftp
-$file = $_FILES['userfile']['name'];
-$filetype=$_FILES["userfile"]["type"];  
+			<blockquote class="push-down">
+				<p>Basic class definitions begin with the keyword class,
+					followed by a class name, followed by a pair of curly braces which
+					enclose the definitions of the properties and methods belonging to the class.</p>
 
-if($filetype != "application/msword" and $filetype != "application/pdf") {
-	die('Invalid file, click &lt;a href="./index.php?error=INV_FILE_EXT">here&lt;/a> to retry!');
+				<p>The class name can be any valid label which is a not a PHP
+					reserved word. A valid class name starts with a letter or underscore,
+					followed by any number of letters, numbers, or underscores.
+					As a regular expression, it would be expressed thus:
+					[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*.</p>
+
+				<p>A class may contain its own constants,
+					variables (called "properties"),
+					and functions (called "methods"). </p>
+			</blockquote>
+
+			<div class="push-down double">
+				<div class="row">
+					<div class="span6 slide">
+						<pre><code class="php">&lt;?php
+
+$var = 'a default value';
+
+function displayVar($var) {
+    echo $var;
 }
-$ftp_path = '/data/' . $file;
+</code></pre>
+					</div>
+					<div class="span6 slide">
+						<pre><code class="php">&lt;?php
 
-// FTP credentials
-$host = 'HOST';
-$user = 'USERNAME';
-$pswd = 'PASSWORD';
+class SimpleClass
+{
+  // property declaration
+  public $var = 'a default value';
 
-// connect to FTP server (port 21)
-$c_id = ftp_connect($host, 21) or die("Cannot connect to host");
-
-// send access parameters
-ftp_login($c_id, $user, $pswd) or die("Cannot login");
-
-// do the file upload
-$upload = ftp_put($c_id, $ftp_path, $file, FTP_ASCII);
-// if your server requires passive mode transfers, use this instead
-// $upload = ftp_pasv ($c_id, true);
-
-// check to see if upload was successful
-print (!$upload) ? 'Cannot upload' : 'Upload complete';
-print "\n";
-
-// close the FTP session
-ftp_close($c_id);</code></pre>	
-		</section>
-
-		<section class="slide full alternate">
-			<h1 class="vcenter">What Are We Doing?</h1>
-		</section>
-
-		<section class="slide full">
-			<h2>File</h2>
-
-			<div class="slide">
-				<h3>Prepare</h3>
-
-				<pre><code class="php">$file = $_FILES['userfile']['name'];
-$filetype=$_FILES["userfile"]["type"];</code></pre>
+  // method declaration
+  public function displayVar() {
+    echo $this->var;
+  }
+}</code></pre>	
+					</div>
+				</div>
 			</div>
-
-			<div class="slide">
-				<h3>Validate</h3>
-
-				<pre><code class="php">if($filetype != "application/msword" and $filetype != "application/pdf") {
-	die('Invalid file, click &lt;a href="./index.php?error=INV_FILE_EXT">here&lt;/a> to retry!');
-}</code></pre>
+			<div class="call-out resource">
+				<a href="http://www.php.net/manual/en/language.oop5.basic.php">
+					http://www.php.net/manual/en/language.oop5.basic.php</a>
 			</div>
 		</section>
 
 		<section class="slide full">
-			<h2>FTP Server</h2>
-
-			<div class="slide">
-				<h3>Configuration</h3>
-				
-				<pre><code class="php">$host = 'HOST';
-$user = 'USERNAME';
-$pswd = 'PASSWORD';</code></pre>
-			</div>
-
-			<div class="slide">
-				<h3>Connect</h3>
-
-				<pre><code class="php">$c_id = ftp_connect($host, 21) or die("Cannot connect to host");
-ftp_login($c_id, $user, $pswd) or die("Cannot login");</code></pre>
-			</div>
-
-			<div class="slide">
-				<h3>Upload</h3>
-
-				<pre><code class="php">$upload = ftp_put($c_id, $ftp_path, $file, FTP_ASCII);
-// $upload = ftp_pasv ($c_id, true); // if your server requires passive mode transfers, use this instead</code></pre>
-			</div>
-
-			<div class="slide">
-				<h3>Disconnect</h3>
-
-				<pre><code class="php">ftp_close($c_id);</code></pre>
-			</div>
-		</section>
-
-		<section class="slide full alternate">
-			<h1 class="vcenter">So Now What?!?</h1>
+			<h1 class="vcenter lower">$this</h1>
 		</section>
 
 		<section class="slide full">
-			<h1 class="vcenter">Classes!</h1>
-		</section>
-
-		<section class="slide full">
-			<h2>NWOPUG\FTP\File</h2>
+			<h2>Creating a "new" Instance</h2>
 
 			<pre><code class="php">&lt;?php
 
-namespace NWOPUG\FTP;
+$instance = new SimpleClass();
 
-class File
+$instance->displayVar(); // Outputs 'a default variable'</code></pre>
+		</section>
+
+		<section class="slide full">
+			<h2>Extending</h2>
+
+			<div class="row">
+				<div class="span6">
+					<pre><code class="php">&lt;?php
+
+class ExtendClass extends SimpleClass
 {
-  private $file;
+    // Redefine the parent method
+    public function displayVar()
+    {
+        echo "Extending class\n";
+        parent::displayVar();
+    }
+}</code></pre>
+				</div>
+				<div class="span6">
+					<pre><code class="php">&lt;?php
 
-  public function __construct($file)
-  {
-    $this->file = $file;
-  }
+class SimpleClass
+{
+  // property declaration
+  public $var = 'a default value';
 
-  public function getName()
-  {
-    return $this->file['name'];
-  }
-
-  public function getType()
-  {
-    return $this->file['type'];
-  }
-
-  public function isValid()
-  {
-    $validTypes = array('application/msword', 'application/pdf');
-    return in_array($this->getType(), $validTypes);
+  // method declaration
+  public function displayVar() {
+    echo $this->var;
   }
 }</code></pre>
-		</section>
-
-		<section class="slide full">
-			<h2>Start Fresh: upload.php</h2>
-
-			<pre><code class="php">include "NWOPUG/FTP/File.php";
-
-$file = new \NWOPUG\FTP\File($_FILES['userfile']);</code></pre>
-
-			<div class="slide">
-				<h3>var_dump($file)</h3>
-
-				<pre><code class="php">object(NWOPUG\FTP\File)#12 (1) {
-  ["file":"NWOPUG\FTP\File":private]=>
-  array(5) {
-    ["name"]=> string(13) "test_file.doc"
-    ["type"]=> string(18) "application/msword"
-    ["size"]=> string(7) "1000000"
-    ["tmp_name"]=> string(12) "Lhdf8yajskdl"
-    ["error"]=> int(0)
-  }
-}</code></pre>
+				</div>
 			</div>
 
-			<div class="slide">
-				<h3>$file->file;</h3>
+			<pre class="slide"><code class="php">$extended = new ExtendClass();
+$extended->displayVar();
+</code></pre>
 
-				<pre><code class="php">PHP Fatal error:  Cannot access private property NWOPUG\FTP\File::$file</code></pre>
-			</div>
-		</section>
-
-		<section class="slide full">
-			<h2>Validation: upload.php</h2>
-
-			<pre><code class="php">include "NWOPUG/FTP/File.php";
-
-$file = new \NWOPUG\FTP\File($_FILES['userfile']);
-
-if ( ! $file->isValid()) {
- // Send user error message
-}
-
-// If we make it here we are good!</code></pre>
+			<h3 class="slide type-center push-down double">Output?</h3>
 		</section>
 
 		<section class="slide full alternate">
-			<h1 class="vcenter">Easier to Read?</h1>
+			<h1 class="vcenter">Public, Protected, Private</h1>
 		</section>
 
 		<section class="slide full">
-			<h2>NWOPUG\FTP</h2>
+			<h2>Visibility</h2>
 
-			<pre><code class="php">namespace NWOPUG;
+			<pre><code class="php">&lt;?php
 
-class FTP
+class MyClass
 {
-  private $config;
-  private $connection = null;
+    public $public = 'Public';
+    protected $protected = 'Protected';
+    private $private = 'Private';
 
-  public function __construct(array $config)
-  {
-    $this->config = $config;
-
-    $this->connection = ftp_connect($this->config['host'], $this->config['port']);
-    if ($this->connection === false)
+    public function printHello()
     {
-      throw new \UnexpectedValueException('Can not connect to '.$this->config['host']);
+        echo $this->public;
+        echo $this->protected;
+        echo $this->private;
     }
-
-    $login = ftp_login($this->connection, $config['user'], $config['password']);
-    if ($login === false)
-    {
-      throw new \UnexpectedValueException('Invalid login');
-    }
-  }
-
-  public function upload($file, $path, $mode = \FTP_ASCII)
-  {
-    return ftp_put($this->connection, $path, $file, $mode);
-  }
-
-  public function __destruct()
-  { 
-    ftp_close($this->connection);
-  }
 }</code></pre>
+
+			<pre class="slide"><code class="php">$obj = new MyClass();
+
+echo $obj->public; // Works
+echo $obj->protected;// Fatal Error
+echo $obj->private; // Fatal Error
+</code></pre>
+
+			<h3 class="slide type-center push-down">What about $obj->printHello()?</h3>
+			<h3 class="slide type-center push-down">How about extended printHello()?</h3>
 		</section>
 
 		<section class="slide full">
-			<h2>FTP: upload.php</h2>
+			<h2>Resources</h2>
 
-			<pre><code class="php">include "NWOPUG/FTP/File.php";
-include "NWOPUG/FTP.php";
-
-$file = new \NWOPUG\FTP\File($_FILES['userfile']);
-
-if ( ! $file->isValid()) {
- // Send user error message
-}
-
-$config = array(
-  'host' => 'ftp.testing.com',
-  'port' => 21,
-  'user' => 'test',
-  'password' => 'youllneverguess'
-);
-
-$ftp = new \NWOPUG\FTP($config);
-$success = $ftp->upload($file->getTmpName(), "/data/".$file->getName());
-
-if ( ! $success) {
-  // Send user error message
-}
-
-// Success!</code></pre>
-		</section>
-
-		<section class="slide full">
-			<h2>Optimize: upload.php</h2>
-
-			<pre><code class="php">// Autoload
-<del>include "NWOPUG/FTP/File.php";
-include "NWOPUG/FTP.php";</del>
-
-$file = new \NWOPUG\FTP\File($_FILES['userfile']);
-
-if ( ! $file->isValid()) {
- // Send user error message
-}
-
-// Keep in configuration file outside of webroot
-<del>$config = array(
-  'host' => 'ftp.testing.com',
-  'port' => 21,
-  'user' => 'test',
-  'password' => 'youllneverguess'
-);</del>
-
-$ftp = new \NWOPUG\FTP($config);
-$success = $ftp->upload($file->getTmpName(), "/data/".$file->getName());
-
-if ( ! $success) {
-  // Send user error message
-}
-
-// Success!</code></pre>
-		</section>
-
-		<section class="slide full">
-			<h2>Updated: upload.php</h2>
-
-			<pre><code class="php">$file = new \NWOPUG\FTP\File($_FILES['userfile']);
-
-if ( ! $file->isValid()) {
- // Send user error message
-}
-
-$ftp = new \NWOPUG\FTP($config);
-$success = $ftp->upload($file->getTmpName(), "/data/".$file->getName());
-
-if ( ! $success) {
-  // Send user error message
-}
-
-// Success!</code></pre>
+			<ul>
+				<li><a href="http://www.phptherightway.com/">PHP the Right Way</a></li>
+			</ul>
 		</section>
 	</article>
 
