@@ -4,19 +4,15 @@ namespace NWOPUG\Helper;
 
 class Beer
 {
-  public static $staples = array(
-    'Natural Light',
-    'Sam Adams',
-    'Bells'
-  );
-
-  public static function random(array $beers = null)
+  public static function random()
   {
-    if ($beers === null) {
-      $beers = self::$staples;
-    }
+	$beers = array(
+      'Guiness',
+      'Sam Adams',
+      'Bells'
+    );
 
-    $random = rand(0, (count($beers) - 1));
-    return $beers[$random];
+	$key = array_rand($beers, 1);
+	return $beers[$key];
   }
 }
