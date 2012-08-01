@@ -81,6 +81,10 @@ blockquote {
 	box-shadow: 0 0 0.5em $themeSecondaryColor;
 }
 
+li {
+	line-height: 2;
+}
+
 /* Classes
    ========================================================================== */
 .vcenter {
@@ -142,7 +146,6 @@ pre {
 	box-shadow: 0 0 10em hsl(0, 0%, 0%) inset;
 
 	h1 {
-		color: hsl(76, 71%, 42%);
 		text-shadow: 0 3px 0 hsl(0, 0%, 0%);
 	}
 }
@@ -153,4 +156,24 @@ pre {
 
 .lower {
 	text-transform: lowercase;
+}
+
+.primary {
+	color: $themePrimaryColor;
+}
+
+.secondary {
+	color: $themeSecondaryColor;
+}
+
+.accent {
+	color: $themeAccentColor;
+}
+
+.green {
+	color: hsl(76, 71%, 42%);
+}
+
+.pink {
+	color: hsl(335, 90%, 62%);
 }

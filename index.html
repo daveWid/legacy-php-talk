@@ -26,7 +26,7 @@
 		</section>
 
 		<section class="slide full alternate">
-			<h1 class="vcenter">Back To Basics</h1>
+			<h1 class="vcenter pink">Back To Basics</h1>
 		</section>
 
 		<section class="slide full">
@@ -136,8 +136,8 @@ $extended->displayVar();
 			<h3 class="slide type-center push-down double">Output?</h3>
 		</section>
 
-		<section class="slide full alternate">
-			<h1 class="vcenter">Public, Protected, Private</h1>
+		<section class="slide full alternate green">
+			<h1 class="vcenter green">Public, <span class="pink">Protected</span>, Private</h1>
 		</section>
 
 		<section class="slide full">
@@ -170,11 +170,111 @@ echo $obj->private; // Fatal Error
 			<h3 class="slide type-center push-down">How about extended printHello()?</h3>
 		</section>
 
-		<section class="slide full">
-			<h2>Resources</h2>
+		<section class="slide full alternate">
+			<h1 class="vcenter green">Updating Legacy Code?</h1>
+		</section>
 
+		<section class="slide full">
+			<h2>Who Wants a Beer?</h2>
+
+			<pre class="slide"><code class="php">if ( ! function_exists('random_beer'))
+{
+  function random_beer()
+  {
+    $beers = array(
+      'Natural Light',
+      'Sam Adams',
+      'Bells'
+    );
+
+    $random = rand(0, (count($beers) - 1));
+    return $beers[$random];
+  }
+}</code></pre>
+	
+		</section>
+
+		<section class="slide full alternate">
+			<h1 class="vcenter green">Where do you keep this?</h1>
+		</section>
+
+		<section class="slide full alternate">
+			<h1 class="vcenter alt pink">How do you find it again?</h1>
+		</section>
+
+		<section class="slide full">
+			<h2>BeerHelper.php to the Rescue!</h2>
+
+			<div class="row">
+				<div class="span5">
+					<pre><code class="php">if ( ! function_exists('random_beer'))
+{
+  function random_beer()
+  {
+    $beers = array(
+      'Natural Light',
+      'Sam Adams',
+      'Bells'
+    );
+
+    $random = rand(0, (count($beers) - 1));
+    return $beers[$random];
+  }
+}</code></pre>
+				</div>
+				<div class="span2">
+					<h2 class="type-center push-down double">=></h2>
+				</div>
+				<div class="span5">
+					<pre><code class="php">&lt;?php
+
+class BeerHelper
+{
+  public static function random()
+  {
+    $beers = array(
+      'Natural Light',
+      'Sam Adams',
+      'Bells'
+    );
+
+    $random = rand(0, (count($beers) - 1));
+    return $beers[$random];
+  }
+}</code></pre>
+				</div>
+			</div>
+
+			<div class="slide">
+				<h3>Use</h3>
+
+				<pre><code class="php">include "BeerHelper.php";
+
+$giveMeA = BeerHelper::random();</code></pre>
+			</div>
+		</section>
+
+		<section class="slide full alternate">
+			<h1 class="vcenter green">NWO-PUG Example</h1>
+		</section>
+
+		<section class="slide full">
+			<h2>On Your Own</h2>
 			<ul>
+				<li>Constructors and Destructors</li>
+				<li>Magic Methods</li>
+				<li>Autoloading</li>
+				<li>Abstraction</li>
+				<li>Interfaces</li>
+				<li>Namespaces (5.3+)</li>
+				<li>Traits (5.4+)</li>
+			</ul>
+
+			<h2>Resources</h2>
+			<ul>
+				<li><a href="http://www.php.net">PHP.net</a></li>
 				<li><a href="http://www.phptherightway.com/">PHP the Right Way</a></li>
+				<li><a href="http://www.php-fig.org/">PHP FIG</a></li>
 			</ul>
 		</section>
 	</article>
