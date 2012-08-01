@@ -44,6 +44,7 @@ h6 {
 	font-family: "LeagueGothicRegular", "Helvetica Neue", sans-serif;
 	color: $themePrimaryColor;
 	margin: 0.5em 0;
+	line-height: 1;
 }
 
 h1 {
@@ -51,6 +52,11 @@ h1 {
 	text-shadow: 0 3px 0 hsl(0, 0%, 100%);
 	margin:0;
 	text-transform: uppercase;
+
+	small {
+		text-transform: lowercase;
+		font-size: 0.5em;
+	}
 }
 
 h2 {
@@ -94,7 +100,7 @@ li {
 	left:0;
 	right:0;
 
-	@include translate(0%, -100%);
+	@include translate(0%, -50%);
 }
 
 .call-out {
@@ -114,6 +120,7 @@ li {
 
 .bgsu {
 	font-family: "Helvetica Neue", sans-serif;
+	font-weight: 200;
 
 	strong {
 		color: #ff7300;
