@@ -171,24 +171,24 @@ echo $obj->private; // Fatal Error
 		</section>
 
 		<section class="slide full alternate">
-			<h1 class="vcenter green">Updating Legacy Code?</h1>
+			<h1 class="vcenter green">Updating Legacy Code???</h1>
 		</section>
 
 		<section class="slide full">
-			<h2>Who Wants a Beer?</h2>
+			<h2>The Indecisive Beer Drinker</h2>
 
 			<pre class="slide"><code class="php">if ( ! function_exists('random_beer'))
 {
   function random_beer()
   {
     $beers = array(
-      'Natural Light',
+      'Guiness',
       'Sam Adams',
       'Bells'
     );
 
-    $random = rand(0, (count($beers) - 1));
-    return $beers[$random];
+    $key = array_rand($beers, 1);
+    return $beers[$key];
   }
 }</code></pre>
 	
@@ -212,13 +212,13 @@ echo $obj->private; // Fatal Error
   function random_beer()
   {
     $beers = array(
-      'Natural Light',
+      'Guiness',
       'Sam Adams',
       'Bells'
     );
 
-    $random = rand(0, (count($beers) - 1));
-    return $beers[$random];
+    $key = array_rand($beers, 1);
+    return $beers[$key];
   }
 }</code></pre>
 				</div>
@@ -233,13 +233,13 @@ class BeerHelper
   public static function random()
   {
     $beers = array(
-      'Natural Light',
+      'Guiness',
       'Sam Adams',
       'Bells'
     );
 
-    $random = rand(0, (count($beers) - 1));
-    return $beers[$random];
+    $key = array_rand($beers, 1);
+    return $beers[$key];
   }
 }</code></pre>
 				</div>
@@ -256,6 +256,40 @@ $giveMeA = BeerHelper::random();</code></pre>
 
 		<section class="slide full alternate">
 			<h1 class="vcenter green">Examples</h1>
+		</section>
+
+		<section class="slide full">
+			<h2>Format</h2>
+
+			<pre><code>class Format
+{
+  public static function phone($num)
+  {
+    $clean = preg_replace("/\D/", "", $num);
+
+    $area = substr($clean, 0, 3);
+    $city = substr($clean, 3, 3);
+    $local = substr($clean, 6, 4);
+
+    return "(".$area.") ".$city."-".$local;
+  }
+
+  public static function date($date, $format = "F jS, Y")
+  {
+    $date = \DateTime::createFromFormat("Y-m-d", $date);
+    return $date->format($format);
+  }
+}</code></pre>
+
+			<div class="slide">
+				<h3>Use</h3>
+
+				<pre><code class="php">Format::phone(1234567890);             // "(123) 456-7890"
+Format::phone("123asdf456ggasdf7890"); // "(123) 456-7890"
+
+Format::date('2012-08-21');            // "August 21st, 2012"
+</code></pre>
+			</div>
 		</section>
 
 		<section class="slide full">
@@ -328,7 +362,6 @@ ftp_close($c_id);</code></pre>
 }</code></pre>
 				</div>
 				<div class="span4">
-					<h3>Use</h3>
 					<pre><code class="php">$config = array(
   'host' => "HOST",
   'user' => "USER",
@@ -353,6 +386,40 @@ if ($success) {
 			</div>
 		</section>
 
+		<section class="slide full alternate">
+			<h1 class="vcenter green">Function Spotlight<br />
+				<small class="pink">array_map</small>
+			</h1>
+		</section>
+
+		<section class="slide full">
+			<h2>array_map</h2>
+
+			<blockquote class="push-down">
+				<p>Applies the callback to the elements of the given arrays</p>
+			</blockquote>
+
+			<pre><code class="php">array array_map ( callable $callback , array $arr1 [, array $... ] )</code></pre>
+
+			<div class="slide">
+				<h3>Example</h3>
+
+				<pre><code class="php">$beers = array('guiness', 'sam adams', 'bells');
+$capitalized = array_map('ucwords', $beers);
+</code></pre>
+
+				<pre><code class="json">array(3) {
+  [0]=> string(7) "Guiness"
+  [1]=> string(9) "Sam Adams"
+  [2]=> string(5) "Bells"
+}</code></pre>
+			</div>
+
+			<div class="call-out resource">
+				<a href="http://us3.php.net/manual/en/function.array-map.php">PHP Manual</a>
+			</div>
+		</section>
+
 		<section class="slide full">
 			<h2>On Your Own</h2>
 			<ul>
@@ -361,6 +428,7 @@ if ($success) {
 				<li>Autoloading</li>
 				<li>Abstraction</li>
 				<li>Interfaces</li>
+				<li>Exceptions</li>
 				<li>Namespaces (5.3+)</li>
 				<li>Traits (5.4+)</li>
 			</ul>
@@ -368,9 +436,14 @@ if ($success) {
 			<h2>Resources</h2>
 			<ul>
 				<li><a href="http://www.php.net">PHP.net</a></li>
-				<li><a href="http://www.phptherightway.com/">PHP the Right Way</a></li>
 				<li><a href="http://www.php-fig.org/">PHP FIG</a></li>
+				<li><a href="http://www.phptherightway.com/">PHP the Right Way</a></li>
 			</ul>
+		</section>
+
+		<section class="slide full">
+			<h1 class="vcenter">Questions? Comments?<br />
+				<small class="accent lower">@davewidmer</small></h1>
 		</section>
 	</article>
 
