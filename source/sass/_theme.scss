@@ -65,6 +65,22 @@ h3 {
 	font-size: 2em;
 }
 
+a {
+	color: $themePrimaryColor;
+}
+
+a:active {
+	color: $themeAccentColor;
+}
+
+blockquote {
+	border-left: 6px solid $themeAccentColor;
+	margin:0;
+	padding: 0.25em 1em;
+	background-color: hsla(0%, 0%, 100%, 0.5);
+	box-shadow: 0 0 0.5em $themeSecondaryColor;
+}
+
 /* Classes
    ========================================================================== */
 .vcenter {
@@ -83,9 +99,13 @@ h3 {
 	right: 2em;
 
 	padding: 1em;
-	background-color: hsla(0, 100%, 100%, 0.5);
+	background-color: hsla(0, 100%, 100%, 0.25);
 	box-shadow: 0 0 0.5em lighten($themePrimaryColor, 10%) inset;
 	border: 1px solid hsla(0, 0%, 80%, 0.75);
+
+	&.resource {
+		font-size: 0.75em;
+	}
 }
 
 .bgsu {
@@ -122,11 +142,15 @@ pre {
 	box-shadow: 0 0 10em hsl(0, 0%, 0%) inset;
 
 	h1 {
-		color: hsla(50, 100%, 50%, 0.9);
+		color: hsl(76, 71%, 42%);
 		text-shadow: 0 3px 0 hsl(0, 0%, 0%);
 	}
 }
 
 .type-center {
 	text-align: center;
+}
+
+.lower {
+	text-transform: lowercase;
 }
