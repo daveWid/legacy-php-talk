@@ -292,6 +292,67 @@ Format::date('2012-08-21');            // "August 21st, 2012"
 			</div>
 		</section>
 
+		<section class="slide full alternate">
+			<h1 class="vcenter green">Database Interaction</h1>
+		</section>
+
+		<section class="slide full">
+			<h2>Databases: The Functional Way</h2>
+
+			<pre><code class="php">$con = mysql_connect("localhost", "root", "") or die('Could not connect: ' . mysql_error());
+mysql_select_db("accordion", $con) or die('Could not open database: ' . mysql_error());
+
+$result = mysql_query("SELECT id, text, URL FROM topics ORDER BY ordering") or die('Error: ' . mysql_error());
+
+while ($row = mysql_fetch_assoc($result)):
+// Display the results to the screen
+endwhile;
+
+mysql_close($con);</code></pre>
+
+			<h2 class="type-center slide push-down double">You copy this into every page?</h2>
+		</section>
+
+		<section class="slide full">
+			<h2>Let's Code A Database Class</h2>
+		</section>
+
+		<section class="slide full">
+			<h2>My Class</h2>
+
+			<pre><code class="php">class Database_MySQL
+{
+  protected $connection = null;
+
+  public function __construct(array $config)
+  {
+    $this->connection = mysql_connect($config['host'], $config['user'], $config['password']) or die('error...');
+    mysql_select_db($config['database', $this->connection]) or die('error....');
+  }
+
+  public function query($sql)
+  {
+    $result = mysql_query($sql); // Make sure your queries are safe!!!!!!!!!
+
+    $resultSet = array();
+    while($row = mysql_fetch_assoc($result))
+    {
+      $resultSet[] = $row;
+    }
+
+    return $resultSet;
+  }
+
+  public function __destruct()
+  {
+    if ($this->connection !== null)
+    {
+      mysql_close($this->connection);
+    }
+  }
+}
+		</section>
+
 		<section class="slide full">
 			<h2>On Your Own</h2>
 			<ul>
@@ -313,7 +374,7 @@ Format::date('2012-08-21');            // "August 21st, 2012"
 			</ul>
 		</section>
 
-				<section class="slide full alternate">
+		<section class="slide full alternate">
 			<h1 class="vcenter green">Function Spotlight<br />
 				<small class="pink">array_map</small>
 			</h1>
