@@ -4,7 +4,7 @@
  * @author    Dave Widmer <dave@davewidmer.net>
  */
 
-/*global hljs:true, jQuery:true */
+/*global hljs:false, jQuery:false */
 (function($){
 	$.deck('.slide', {
 		selectors: {
@@ -14,5 +14,9 @@
 
 	$('pre code').each( function(i, e){
 		hljs.highlightBlock(e);
+	});
+
+	$('[contenteditable="true"]').on('blur', function(){
+		hljs.highlightBlock(this);
 	});
 })(jQuery);
